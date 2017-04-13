@@ -67,14 +67,14 @@ class Activations(object):
     def cube(self, z):
         return z ** 3
 
-    def abs(z):
+    def abs(self, z):
         return abs(z)
 
-    def hat(z):
+    def hat(self, z):
         return max(0.0, 1 - abs(z))
 
-    def square(z):
+    def square(self, z):
         return z ** 2
 
-    def cube(z):
+    def cube(self, z):
         return z ** 3
