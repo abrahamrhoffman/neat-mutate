@@ -1,5 +1,4 @@
 # mutate
-
-(http://i.imgur.com/JwHdNKL.png)
-
 Neuroevolution for Keras
+
+!(http://i.imgur.com/JwHdNKL.png)
