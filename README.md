@@ -1,4 +1,4 @@
 # mutate
 Neuroevolution for Keras
 
-![](http://i.imgur.com/JwHdNKL.png =250x)
+<img src="http://i.imgur.com/JwHdNKL.png" alt="Drawing" style="width: 200px;"/>
