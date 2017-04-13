@@ -13,26 +13,21 @@ import math
 class Activations(object):
 
     def sigmoid(self, z):
-        z = max(-60.0, min(60.0, 5.0 * z))
         return 1.0 / (1.0 + math.exp(-z))
 
     def tanh(self, z):
-        z = max(-60.0, min(60.0, 2.5 * z))
         return math.tanh(z)
 
     def sin(self, z):
-        z = max(-60.0, min(60.0, 5.0 * z))
         return math.sin(z)
 
     def gauss(self, z):
-        z = max(-3.4, min(3.4, z))
         return math.exp(-5.0 * z**2)
 
     def relu(self, z):
         return z if z > 0.0 else 0.0
 
     def softplus(self, z):
-        z = max(-60.0, min(60.0, 5.0 * z))
         return 0.2 * math.log(1 + math.exp(z))
 
     def identity(self, z):
@@ -48,11 +43,9 @@ class Activations(object):
             return 1.0 / z
 
     def log(self, z):
-        z = max(1e-7, z)
         return math.log(z)
 
     def exp(self, z):
-        z = max(-60.0, min(60.0, z))
         return math.exp(z)
 
     def abs(self, z):
