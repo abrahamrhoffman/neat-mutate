@@ -55,7 +55,6 @@ class Activation(object):
         z = max(-60.0, min(60.0, z))
         return math.exp(z)
 
-<<<<<<< HEAD
     def abs_activation(self, z):
         return abs(z)
 
@@ -67,7 +66,7 @@ class Activation(object):
 
     def cube_activation(self, z):
         return z ** 3
-=======
+
     def abs_activation(z):
         return abs(z)
 
@@ -79,5 +78,3 @@ class Activation(object):
 
     def cube_activation(z):
         return z ** 3
-
->>>>>>> e8ee7e259f5e0eb1a322146a4061f5cb1a1fa72b
