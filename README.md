@@ -1,13 +1,13 @@
 # mutate
 Distributed Neuroevolution
 
-<h4>Fitness Function</h4>
+<h2>NEAT</h2>
 
-<h4>Genome</h4>
+<h3>Genome</h3>
+<h4>Genes</h4>
 
-<h4>Species</h4>
+<h3>Phenome</h3>
+<h4>Neural Network</h4>
 
-<h4>Activation Functions</h4>
-Since Mutate uses feed-forward networks exclusively, you will notice quite a few activation functions (activations.py). These activation functions add diversity to your neuroevolution task.
-
-<h4>Substrate</h4>
+<h3>Species</h3>
+<h4>Speciation</h4>
