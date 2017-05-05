@@ -18,6 +18,12 @@ python xor.py
  [ 0.26564977]]
 ```
 
+Development Features:
+- Accept dimensionally arbitrary data as input
+- Auto-defines a full Neural Network of nodes and connections (Genome)
+- Auto-creates a Neural Network for your data (Phenome)
+- Evaluates Neural Network fitness
+
 <h3>Model or Data Parallelism? Your choice.</h3>
 ...
 
