@@ -48,4 +48,3 @@ class Genome(object):
         connections = pd.DataFrame.from_records(connection_genes, columns=connection_genes_labels)
 
         return nodes,connections
-
