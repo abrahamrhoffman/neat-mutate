@@ -1,57 +1,33 @@
-
+from __future__ import print_function
+import tensorflow as tf
 
 class Phenome(object):
     '''
     A Neural Network Constructor: Accepts a Genome as input
     '''
-    def __init__(self, inputs, outputs, node_evals):
-        self.input_nodes = inputs
-        self.output_nodes = outputs
-        self.node_evals = node_evals
-        self.values = dict((key, 0.0) for key in inputs + outputs)
 
-    def activate(self, inputs):
-        if len(self.input_nodes) != len(inputs):
-            raise Exception("Expected {0} inputs, got {1}".format(len(self.input_nodes), len(inputs)))
+    def __init__(self, GENOME):
+        self.genome = GENOME
 
-        for k, v in zip(self.input_nodes, inputs):
-            self.values[k] = v
+    def create(self):
+        nodes,connections = self.genome
 
-        for node, act_func, agg_func, bias, response, links in self.node_evals:
-            node_inputs = []
-            for i, w in links:
-                node_inputs.append(self.values[i] * w)
-            s = agg_func(node_inputs)
-            self.values[node] = act_func(bias + response * s)
+        x_ = tf.placeholder(tf.float32, name="x-input")
+        y_ = tf.placeholder(tf.float32, name="y-input")
 
-        return [self.values[i] for i in self.output_nodes]
+        input_count = 0
+        for i in nodes.loc[:,['type']].values.tolist():
+            if ('sensor') in i:
+                input_count += 1
 
-    @staticmethod
-    def create(genome, config):
-        '''
-        Receives a genome and returns its phenotype (a Feed-Forward Neural Network).
-        '''
+        output_count = 0
+        for i in nodes.loc[:,['type']].values.tolist():
+            if ('output') in i:
+                output_count += 1
 
-        # Gather expressed connections.
-        connections = [cg.key for cg in itervalues(genome.connections) if cg.enabled]
+        weight = tf.Variable(tf.random_uniform([(input_count),(output_count)], -1, 1), name="Weight")
+        bias = tf.Variable(tf.zeros([(output_count)]), name="Bias")
+        activation = tf.sigmoid(tf.matmul(x_, weight) + bias)
 
-        layers = feed_forward_layers(config.genome_config.input_keys, config.genome_config.output_keys, connections)
-        node_evals = []
-        for layer in layers:
-            for node in layer:
-                inputs = []
-                node_expr = []
-                # TODO: This could be more efficient.
-                for cg in itervalues(genome.connections):
-                    inode, onode = cg.key
-                    if onode == node and cg.enabled:
-                        inputs.append((inode, cg.weight))
-                        node_expr.append("v[{}] * {:.7e}".format(inode, cg.weight))
-
-                ng = genome.nodes[node]
-                aggregation_function = config.genome_config.aggregation_function_defs[ng.aggregation]
-                activation_function = config.genome_config.activation_defs.get(ng.activation)
-                node_evals.append((node, activation_function, aggregation_function, ng.bias, ng.response, inputs))
-
-        return FeedForwardNetwork(config.genome_config.input_keys, config.genome_config.output_keys, node_evals)
+        return x_,y_,weight,bias,activation
 
