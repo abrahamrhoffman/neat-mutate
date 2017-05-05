@@ -12,10 +12,10 @@ git clone https://github.com/abrahamrhoffman/MUTATE.git
 cd MUTATE
 python xor.py
 ...
-[[ 0.6583308 ]
- [ 0.46377918]
- [ 0.46937868]
- [ 0.16171665]]
+[[ 0.5       ]
+ [ 0.34557512]
+ [ 0.4065465 ]
+ [ 0.26564977]]
 ```
 
 <h3>Model or Data Parallelism? Your choice.</h3>
