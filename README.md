@@ -6,14 +6,16 @@ This library is a brand-spanking-new implementation of <a href = "http://www.cs.
 <i>This library is under active development.</i>
 
 <h3>Development XOR Example</h3>
-git clone https://github.com/abrahamrhoffman/MUTATE.git<br>
-cd MUTATE<br>
-python xor.py<br>
-...<br>
-[[ 0.6583308 ]<br>
- [ 0.46377918]<br>
- [ 0.46937868]<br>
- [ 0.16171665]]<br>
+```
+git clone https://github.com/abrahamrhoffman/MUTATE.git
+cd MUTATE
+python xor.py
+...
+[[ 0.6583308 ]
+ [ 0.46377918]
+ [ 0.46937868]
+ [ 0.16171665]]
+```
 
 <h3>Model or Data Parallelism? Your choice.</h3>
 ...
