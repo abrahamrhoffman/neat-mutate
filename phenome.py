@@ -30,4 +30,3 @@ class Phenome(object):
         activation = tf.sigmoid(tf.matmul(x_, weight) + bias)
 
         return x_,y_,weight,bias,activation
-
