@@ -5,14 +5,6 @@ This library is a brand-spanking-new implementation of <a href = "http://www.cs.
 <br>
 The primary benefit of using this neuroevolution library is that it distributes either your model or data (depending on your choice of parallelism).<br>
 
-<h4>Change Log</h4>
-
-- 05-07-2017: Single-pass XOR initial commit 
-- 05-01-2017: Genome, Phenome, Fitness initial commit
-- 04-21-2017: Multi-GPU and distributed Genome design
-
-<i>This library is under active development.</i>
-
 <h3>Development XOR Example</h3>
 
 ```
@@ -37,3 +29,11 @@ Development Features:
 
 <h3>Single Node(CPU, GPU or Multi-GPU) [or] Multi-Node(CPU, GPU or Multi-GPU)</h3>
 ...
+
+<i>This library is under active development.</i>
+
+<h4>Change Log</h4>
+
+- 05-07-2017: Single-pass XOR initial commit 
+- 05-01-2017: Genome, Phenome, Fitness initial commit
+- 04-21-2017: Multi-GPU and distributed Genome design
