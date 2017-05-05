@@ -1,4 +1,5 @@
 from __future__ import print_function
+import os;os.environ['PYTHONDONTWRITEBYTECODE']='1'
 import tensorflow as tf
 
 class Fitness(object):
@@ -19,5 +20,7 @@ class Fitness(object):
         sess.run(init)
 
         result = sess.run(activation, feed_dict={x_: X, y_: Y})
+
+
 
         return result

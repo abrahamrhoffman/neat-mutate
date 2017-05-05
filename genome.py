@@ -1,4 +1,5 @@
 from __future__ import print_function
+import os;os.environ['PYTHONDONTWRITEBYTECODE']='1'
 import pandas as pd
 
 class Genome(object):
@@ -48,3 +49,37 @@ class Genome(object):
         connections = pd.DataFrame.from_records(connection_genes, columns=connection_genes_labels)
 
         return nodes,connections
+
+    def mutate(self, GENOME):
+        '''
+        Two types of structural mutation: Add Connection or Node
+        '''
+        ### Add Connection ###
+        pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ### Add Node ###

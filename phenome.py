@@ -1,4 +1,5 @@
 from __future__ import print_function
+import os;os.environ['PYTHONDONTWRITEBYTECODE']='1'
 import tensorflow as tf
 
 class Phenome(object):
