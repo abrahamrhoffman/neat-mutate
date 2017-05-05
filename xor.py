@@ -23,6 +23,7 @@ def NEAT(data):
     PHENOME = p.create()        # Create a Phenome (Neural Network)
     f = Fitness(data,PHENOME)   # Evaluate Phenome Fitness
     FITNESS = f.evaluate()
+    print(FITNESS)
 
 def main():
     data = create_data()
