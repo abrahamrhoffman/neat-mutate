@@ -6,6 +6,7 @@ This library is a brand-spanking-new implementation of <a href = "http://www.cs.
 <i>This library is under active development.</i>
 
 <h3>Development XOR Example</h3>
+
 ```
 git clone https://github.com/abrahamrhoffman/MUTATE.git
 cd MUTATE
