@@ -10,7 +10,7 @@ def create_data():
     '''
     XOR Data
     '''
-    X = np.array([[0,0,0,1],[0,1,0,1],[1,0,0,1],[1,1,1,1]], dtype=np.float32)
+    X = np.array([[0,0],[0,1],[1,0],[1,1]], dtype=np.float32)
     Y = np.array([[0],[1],[1],[0]], dtype=np.float32)
 
     return X,Y
