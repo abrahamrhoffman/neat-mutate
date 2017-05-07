@@ -1,4 +1,5 @@
 from __future__ import print_function
+import os;os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
 import sys
 from genome import Genome
 from phenome import Phenome
