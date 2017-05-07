@@ -20,6 +20,7 @@ class NEAT(object):
         f = Fitness(self.data,PHENOME)  # Evaluate Phenome Fitness
         FITNESS = f.evaluate()
 
+        X,Y = self.data
         result,error,solved = FITNESS
 
         print('Expected: {}'.format(Y))
