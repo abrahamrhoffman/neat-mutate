@@ -22,9 +22,9 @@ class Fitness(object):
         error = sess.run(tf.sqrt(tf.reduce_mean(tf.square(tf.subtract(Y, result)))))
 
         if error >= 0.0001:
-            continue = True
-            return result,error,continue
+            solved == True
+            return result,error,solved
 
         if error <= 0.0001:
-            continue = False
-            return result,error,continue
+            solved == False
+            return result,error,solved
