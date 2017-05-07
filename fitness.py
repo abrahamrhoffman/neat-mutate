@@ -19,5 +19,9 @@ class Fitness(object):
         sess.run(init)
 
         result = sess.run(activation, feed_dict={x_: X, y_: Y})
+        error = sess.run(tf.sqrt(tf.reduce_mean(tf.square(tf.subtract(Y, result)))))
 
-        return result
+        if error <= 0.0001:
+            return result,error,continue=False
+        if error >= 0.0001:
+            return result,error,continue=True
