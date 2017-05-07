@@ -12,10 +12,10 @@ class NEAT(object):
         self.data = data
 
     def run(self):
-        g = Genome(data)            # Instantiate the Genome Class with our XOR Data
+        g = Genome(self.data)            # Instantiate the Genome Class with our XOR Data
         GENOME = g.create()         # Create an indirectly encoded (NEAT) Genome
         p = Phenome(GENOME)         # Instantiate the Phenome Class with our newly minted Genome
         PHENOME = p.create()        # Create a Phenome (Neural Network)
-        f = Fitness(data,PHENOME)   # Evaluate Phenome Fitness
+        f = Fitness(self.data,PHENOME)   # Evaluate Phenome Fitness
         FITNESS = f.evaluate()
-        print(FITNESS)      
+        print(FITNESS)
