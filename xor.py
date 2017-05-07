@@ -13,6 +13,8 @@ def main():
     ### Use Mutate's NEAT Algorithm ###
     mutate = NEAT(data)
     mutate.run()
+    #results = mutate.run()
+    #results.save('xor.model')
 
     ### (Optional) Clean Generated PYC Files ###
     Popen('rm -f *.pyc',shell=True)
