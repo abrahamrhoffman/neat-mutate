@@ -23,12 +23,13 @@ def NEAT(data):
     PHENOME = p.create()        # Create a Phenome (Neural Network)
     f = Fitness(data,PHENOME)   # Evaluate Phenome Fitness
     FITNESS = f.evaluate()
+
     print(FITNESS)
 
 def main():
     data = create_data()
     NEAT(data)
-    Popen('rm -f *.pyc',shell=True)
+    Popen('rm -f *.pyc',shell=True) # Cleanup after execution
 
 if __name__ == "__main__":
     main()

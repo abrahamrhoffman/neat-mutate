@@ -20,6 +20,4 @@ class Fitness(object):
 
         result = sess.run(activation, feed_dict={x_: X, y_: Y})
 
-
-
         return result
