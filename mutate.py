@@ -23,6 +23,9 @@ class NEAT(object):
         X,Y = self.data
         result,error,solved = FITNESS
 
-        print('Expected: {}'.format(Y))
-        print('Result: {}'.format(result))
-        print('Error: {}'.format(error))
+        print('Expected:')
+        print('{}'.format(Y))
+        print('Result:')
+        print('{}'.format(result))
+        print('Error:')
+        print('{}'.format(error))
