@@ -16,7 +16,8 @@ def create_data():
 
 def main():
     data = create_data()
-    NEAT(data)
+    n = NEAT(data)
+    n.run()
     Popen('rm -f *.pyc',shell=True) # Cleanup after execution
 
 if __name__ == "__main__":
