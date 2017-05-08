@@ -19,14 +19,22 @@ class Genome(object):
         Y_count = (X_count + Y.shape[-1])
 
         ### Node Genes ###
+        # Our first order of business is to generate a genome per Ken Stanley's et. al.
+        # For simplicity, we define the node genes in a python list.
 
         node_genes_labels = ['node','type']                      # Define Node Labels
         node_genes = [[i, 'sensor'] for i in xrange(1, X_count)] # Generate Sensor Nodes
         for i in xrange(X_count, Y_count):                       # Generate Output Nodes
             node_genes.extend([[i, 'output']])
-        nodes = pd.DataFrame.from_records(node_genes, columns=node_genes_labels) # Convert Nodes to DataFrame
+
+        # Now that the Node genes are built, let's send them to Pandas.
+        # This will allow us to ship data frames around in our distributed model
+        nodes = pd.DataFrame.from_records(node_genes, columns=node_genes_labels) # Convert Node Genes to DataFrame
+        nodes.set_index(nodes['node'], inplace=True)
+        del nodes['node']
 
         ### Connection Genes ###
+        # Define our connection genes in a python list
 
         connection_genes_labels = ['in','out','weight','enabled','innovation']   # Define Connection Labels
         connection_genes = []
@@ -45,7 +53,11 @@ class Genome(object):
             i.extend([innovation_count])
             innovation_count += 1
 
-        connections = pd.DataFrame.from_records(connection_genes, columns=connection_genes_labels)
+        # Now that the Connection genes are built, let's send them to Pandas.
+        # This will allow us to ship data frames around in our distributed model
+        connections = pd.DataFrame.from_records(connection_genes, columns=connection_genes_labels) # Convert Connection Genes to DataFrame
+        connections.set_index(connections['innovation'], inplace=True)
+        del connections['innovation']
 
         return nodes,connections
 
