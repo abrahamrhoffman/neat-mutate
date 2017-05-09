@@ -28,7 +28,7 @@ class Phenome(object):
         weights_dim = connections['weight'].shape[0]
         weights = [i for i in connections['weight']]
 
-        weight = tf.constant(weights,shape=[weights_dim,],dtype=tf.float32)
+        weight = tf.constant(weights,shape=[weights_dim,connections['weight'].shape[1]],dtype=tf.float32)
 
         #weight = tf.Variable(tf.random_uniform([(input_count),(output_count)], -1, 1), name="Weight")
         bias = tf.Variable(tf.zeros([(output_count)]), name="Bias")
