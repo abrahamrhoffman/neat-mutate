@@ -28,7 +28,7 @@ class Phenome(object):
         #weights_dim = connections['weight'].shape[0]
         #weights = [i for i in connections['weight']]
 
-        weight = [tf.constant(i),dtype=tf.float32 for i in connections['weight']]
+        weight = [(tf.constant(i,dtype=tf.float32)) for i in connections['weight']]
 
         #weight = tf.constant(weights,shape=[weights_dim,],dtype=tf.float32)
 
