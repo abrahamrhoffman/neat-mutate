@@ -63,15 +63,15 @@ class Genome(object):
         nodes,connections = GENOME
 
         ### Add Connection ###
-        #new_connection = {'type'}
 
         ### Add Node ###
         new_node = {'type': ['hidden']}
         mutate_node = pd.DataFrame(new_node, columns=['type'])
         nodes = nodes.append(mutate_node, ignore_index=True)
 
-        # Adding a New Node, requires that the weight of the connections
-        # be updated to 1.
+
+
+        # When a new node is added, it is placed in-between two other nodes...
 
         GENOME = nodes,connections
         return GENOME

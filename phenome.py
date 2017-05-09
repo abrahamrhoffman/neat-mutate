@@ -25,7 +25,12 @@ class Phenome(object):
             if ('output') in i:
                 output_count += 1
 
-        weight = tf.Variable(tf.random_uniform([(input_count),(output_count)], -1, 1), name="Weight")
+        #weights_dim = connections['weight'].shape[0]
+        weights = [i for i in connections['weight']]
+
+        weight = tf.constant(weights)
+
+        #weight = tf.Variable(tf.random_uniform([(input_count),(output_count)], -1, 1), name="Weight")
         bias = tf.Variable(tf.zeros([(output_count)]), name="Bias")
         activation = tf.sigmoid(tf.matmul(x_, weight) + bias)
 
