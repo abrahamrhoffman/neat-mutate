@@ -30,8 +30,6 @@ class Genome(object):
         # Now that the Node genes are built, let's send them to Pandas.
         # This will allow us to ship data frames around in our distributed model
         nodes = pd.DataFrame.from_records(node_genes, columns=node_genes_labels) # Convert Node Genes to DataFrame
-        nodes.set_index(nodes['node'], inplace=True)
-        del nodes['node']
 
         ### Connection Genes ###
         # Define our connection genes in a python list
@@ -56,14 +54,12 @@ class Genome(object):
         # Now that the Connection genes are built, let's send them to Pandas.
         # This will allow us to ship data frames around in our distributed model
         connections = pd.DataFrame.from_records(connection_genes, columns=connection_genes_labels) # Convert Connection Genes to DataFrame
-        connections.set_index(connections['innovation'], inplace=True)
-        del connections['innovation']
 
         return nodes,connections
 
     def mutate(self, GENOME):
         '''
-        Two types of structural mutation: Add Connection or Node
+        Two types of structural mutations: Add Connection or Node
         '''
         ### Add Connection ###
         pass
