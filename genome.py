@@ -1,5 +1,5 @@
 from __future__ import print_function
-import pandas as pd
+    import pandas as pd
 
 class Genome(object):
     '''
@@ -23,36 +23,35 @@ class Genome(object):
         # For simplicity, we define the node genes in a python list.
 
         # Deprecated the Node Count, since Pandas indexes already. Just gonna use that.
-        node_genes_labels = ['type']                          # Define Node Labels
-        node_genes = [['sensor'] for i in xrange(1, X_count)] # Generate Sensor Nodes
-        for i in xrange(X_count, Y_count):                    # Generate Output Nodes
-            node_genes.extend([['output']])
+        node_genes_labels = ['node','type']                      # Define Node Labels
+        node_genes = [[i, 'sensor'] for i in xrange(1, X_count)] # Generate Sensor Nodes
+        for i in xrange(X_count, Y_count):                       # Generate Output Nodes
+            node_genes.extend([[i, 'output']])
 
         # Now that the Node genes are built, let's send them to Pandas.
         # This will allow us to ship data frames around in our distributed model
         nodes = pd.DataFrame.from_records(node_genes, columns=node_genes_labels) # Convert Node Genes to DataFrame
 
         ### Connection Genes ###
-        # Define our connection genes in a python list
-
-        # Deprecated the Innovation Number, since this will match up to the node count
-        # and is already indexed (starting at 0) by Pandas
-        connection_genes_labels = ['in','out','weight','enabled']   # Define Connection Labels
+        connection_genes_labels = ['in','out','weight','enabled','innovation']   # Define Connection Labels
         connection_genes = []
         for i in xrange(1, Y_count):        # Generate Input Connections
             connection_genes.extend([[i]])
         for i in connection_genes:          # Generate Output Connections
             for j in node_genes:
                 if ('output') in j:
-                   i.extend([j[0]])
+                    i.extend([j[0]])
         for i in connection_genes:          # Generate Connection Weights (start at 0, fully initialized in phenome)
             i.extend([0])
         for i in connection_genes:          # Enable all initial connection Genes
             i.extend([True])
+        innovation_count = 1                # Generate connection gene innovation numbers
+        for i in connection_genes:
+            i.extend([innovation_count])
+            innovation_count += 1
 
-        # Now that the Connection genes are built, let's send them to Pandas.
-        # This will allow us to ship data frames around in our distributed model
-        connections = pd.DataFrame.from_records(connection_genes, columns=connection_genes_labels) # Convert Connection Genes to DataFrame
+        # Dataframes for our Connection Genes too
+        connections = pd.DataFrame.from_records(connection_genes, columns=connection_genes_labels)
 
         return nodes,connections
 
