@@ -35,6 +35,7 @@ Development Features:
 
 <h4>Change Log</h4>
 
+- 05-15-2017: Pandas refactor, ops streamlined and pushed to Tensorflow
 - 05-07-2017: Single-pass XOR initial commit 
 - 05-01-2017: Genome, Phenome, Fitness initial commit
 - 04-21-2017: Multi-GPU and distributed Genome design

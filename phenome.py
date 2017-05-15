@@ -1,5 +1,6 @@
 from __future__ import print_function
 import tensorflow as tf
+import numpy as np
 
 class Phenome(object):
     '''
@@ -10,23 +11,13 @@ class Phenome(object):
         self.genome = GENOME
 
     def create(self):
-        nodes,connections = self.genome
-
         x_ = tf.placeholder(tf.float32, name="x-input")
         y_ = tf.placeholder(tf.float32, name="y-input")
 
-        input_count = 0
-        for i in nodes.loc[:,['type']].values.tolist():
-            if ('sensor') in i:
-                input_count += 1
+        sensor = self.genome.loc[self.genome['type'] == ('sensor'),]                                             # All Sensor Nodes
+        sensor_weights = self.genome.loc[self.genome['type'] == ('sensor'),]['weight'].values.astype(np.float32) # All Sensor Node Weights
+        op = tf.sigmoid(tf.reduce_sum(tf.multiply(x_, sensor_weights), 1))                                       # Initial Neural Network (Phenome) for Genome
 
-        output_count = 0
-        for i in nodes.loc[:,['type']].values.tolist():
-            if ('output') in i:
-                output_count += 1
+        PHENOME = x_,y_,op
 
-        weight = tf.Variable(tf.random_uniform([(input_count),(output_count)], -1, 1), name="Weight")
-        bias = tf.Variable(tf.zeros([(output_count)]), name="Bias")
-        activation = tf.sigmoid(tf.matmul(x_, weight) + bias)
-
-        return x_,y_,weight,bias,activation
+        return PHENOME

@@ -7,10 +7,23 @@ class Report(object):
     Mutate StdOut Reporting
     '''
 
-    def __init__(self):
-        pass
+    def __init__(self, data, FITNESS):
+        self.fitness = FITNESS
+        self.data = data
 
-    def start(self, index=0):
+    def start(self):
+        X,Y = self.data
+        result,error,solved = self.fitness
+
+        print('Expected:')
+        print('{}'.format(Y))
+        print('Result:')
+        print('{}'.format(result))
+        print('Error:')
+        print('{}'.format(error))
+
+
+    def start_cool(self, index=0):
         LENGTH = 100
         global output_list
         now = 0
