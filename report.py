@@ -18,7 +18,7 @@ class Report(object):
         print('Expected:')
         print('{}'.format(Y))
         print('Result:')
-        print('{}'.format(result.T))
+        print('{}'.format(result))
         print('Error:')
         print('{}'.format(error))
 
