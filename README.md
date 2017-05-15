@@ -12,10 +12,15 @@ git clone https://github.com/abrahamrhoffman/MUTATE.git
 cd MUTATE
 python xor.py
 ...
-[[ 0.5       ]
- [ 0.34557512]
- [ 0.4065465 ]
- [ 0.26564977]]
+Expected:
+[[ 0.]
+ [ 1.]
+ [ 1.]
+ [ 0.]]
+Result:
+[ 0.5         0.53404307  0.66135699  0.69119895]
+Error:
+0.515691757202
 ```
 
 Development Features:
