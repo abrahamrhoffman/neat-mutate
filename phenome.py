@@ -16,7 +16,7 @@ class Phenome(object):
 
         sensor = self.genome.loc[self.genome['type'] == ('sensor'),]                                             # All Sensor Nodes
         sensor_weights = self.genome.loc[self.genome['type'] == ('sensor'),]['weight'].values.astype(np.float32) # All Sensor Node Weights
-        op = tf.sigmoid(tf.reduce_sum(tf.multiply(x_, sensor_weights), 1))                                       # Initial Neural Network (Phenome) for Genome
+        op = tf.sigmoid(tf.reduce_mean(tf.multiply(x_, sensor_weights), 1))                                       # Initial Neural Network (Phenome) for Genome
 
         PHENOME = x_,y_,op
 
