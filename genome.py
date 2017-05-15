@@ -18,59 +18,27 @@ class Genome(object):
         X_count = (X.shape[-1] + 1)
         Y_count = (X_count + Y.shape[-1])
 
-        ### Node Genes ###
-        # Our first order of business is to generate a genome per Ken Stanley's et. al.
-        # For simplicity, we define the node genes in a python list.
-
-        # Deprecated the Node Count, since Pandas indexes already. Just gonna use that.
-        node_genes_labels = ['node','type']                      # Define Node Labels
-        node_genes = [[i, 'sensor'] for i in xrange(1, X_count)] # Generate Sensor Nodes
-        for i in xrange(X_count, Y_count):                       # Generate Output Nodes
-            node_genes.extend([[i, 'output']])
-
-        # Now that the Node genes are built, let's send them to Pandas.
-        # This will allow us to ship data frames around in our distributed model
-        nodes = pd.DataFrame.from_records(node_genes, columns=node_genes_labels) # Convert Node Genes to DataFrame
-
-        ### Connection Genes ###
+        node_genes_labels = ['node','type']                                      # Define Node Labels
+        node_genes = [[i, 'sensor'] for i in xrange(1, X_count)]                 # Generate Sensor Nodes
+        [node_genes.extend([[i, 'output']]) for i in xrange(X_count, Y_count)]   # Generate Output Nodes
+        nodes = pd.DataFrame.from_records(node_genes, columns=node_genes_labels) # Convert Nodes to DataFrame
         connection_genes_labels = ['in','out','weight','enabled','innovation']   # Define Connection Labels
-        connection_genes = []
-        for i in xrange(1, Y_count):        # Generate Input Connections
-            connection_genes.extend([[i]])
-        for i in connection_genes:          # Generate Output Connections
-            for j in node_genes:
-                if ('output') in j:
-                    i.extend([j[0]])
-        for i in connection_genes:          # Generate Connection Weights (start at 0, fully initialized in phenome)
-            i.extend([0])
-        for i in connection_genes:          # Enable all initial connection Genes
-            i.extend([True])
-        innovation_count = 1                # Generate connection gene innovation numbers
-        for i in connection_genes:
-            i.extend([innovation_count])
-            innovation_count += 1
+        connection_genes = [[i] for i in xrange(1, Y_count)]                     # Generate Input Connections
+        [i.extend([j[0]]) for i in connection_genes for j in node_genes if ('output') in j] # Generate Output Connections
+        [i.extend([np.random.uniform(-1.0,1.0)]) for i in connection_genes]                 # Generate Connection Weights
+        [i.extend([True]) for i in connection_genes]                                        # Enable Initial Connection Genes
+        innovation_count = len([j.extend([i+1]) for i,j in enumerate(connection_genes)])    # Generate Innovation Numbers
+        connections = pd.DataFrame.from_records(connection_genes, columns=connection_genes_labels) # Convert Connections to Dataframes
+        GENOME = pd.concat([nodes,connections], axis=1)                                            # GENOME = Nodes + Connections
 
-        # Dataframes for our Connection Genes too
-        connections = pd.DataFrame.from_records(connection_genes, columns=connection_genes_labels)
-
-        return nodes,connections
+        return GENOME
 
     def mutate(self, GENOME):
         '''
         Two types of structural mutations: Add Connection or Node
         '''
-        nodes,connections = GENOME
-
         ### Add Connection ###
 
         ### Add Node ###
-        new_node = {'type': ['hidden']}
-        mutate_node = pd.DataFrame(new_node, columns=['type'])
-        nodes = nodes.append(mutate_node, ignore_index=True)
 
-
-
-        # When a new node is added, it is placed in-between two other nodes...
-
-        GENOME = nodes,connections
         return GENOME

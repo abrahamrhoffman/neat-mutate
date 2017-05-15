@@ -12,11 +12,10 @@ class Fitness(object):
 
     def evaluate(self):
         X,Y = self.data
-        x_,y_,weight,bias,activation = self.phenome
+        x_,y_,op = self.phenome
 
-        init = tf.global_variables_initializer()
         sess = tf.Session()
-        sess.run(init)
+        result = sess.run(op, feed_dict={x_: X})
 
         result = sess.run(activation, feed_dict={x_: X, y_: Y})
         error = sess.run(tf.sqrt(tf.reduce_mean(tf.square(tf.subtract(Y, result)))))
