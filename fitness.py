@@ -15,9 +15,8 @@ class Fitness(object):
         x_,y_,op = self.phenome
 
         sess = tf.Session()
-        result = sess.run(op, feed_dict={x_: X})
 
-        result = sess.run(activation, feed_dict={x_: X, y_: Y})
+        result = sess.run(op, feed_dict={x_: X, y_: Y})
         error = sess.run(tf.sqrt(tf.reduce_mean(tf.square(tf.subtract(Y, result)))))
 
         if error >= 0.0001:
