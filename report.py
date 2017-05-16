@@ -15,8 +15,13 @@ class Report(object):
         X,Y = self.data
         result,error,solved = self.fitness
 
-        print('Expected | Result | Error')
-        print('{} {} {}'.format(Y, result, error))
+        print('Expected:')
+        print('{}'.format(Y))
+        print('Result:')
+        print('{}'.format(result))
+        print('Error:')
+        print('{}'.format(error))
+
 
     def start_cool(self, index=0):
         LENGTH = 100
