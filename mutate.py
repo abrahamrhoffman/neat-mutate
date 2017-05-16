@@ -20,5 +20,13 @@ class NEAT(object):
         PHENOME = p.create()            # Create a Phenome (Neural Network)
         f = Fitness(self.data,PHENOME)  # Instantiate Phenome Fitness (Tensorflow)
         FITNESS = f.evaluate()          # Evaluate Phenome Fitness
-        r = Report(self.data,FITNESS)   # Instantiate the Report Class
-        REPORT = r.start()              # Print the Report to StdOut
+        result,error,solved = FITNESS
+        if solved:
+            break
+        else:
+            r = Report(self.data,FITNESS)   # Instantiate the Report Class
+            REPORT = r.start()              # Print the Report to StdOut
+            self.population(GENOME, PHENOME)
+
+    def population(self, GENOME, PHENOME):
+        pass
