@@ -22,7 +22,7 @@ class NEAT(object):
         FITNESS = f.evaluate()          # Evaluate Phenome Fitness
         result,error,solved = FITNESS
         if solved:
-            break
+            sys.exit()
         else:
             r = Report(self.data,FITNESS)   # Instantiate the Report Class
             REPORT = r.start()              # Print the Report to StdOut
