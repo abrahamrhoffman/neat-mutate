@@ -1,5 +1,6 @@
 from __future__ import print_function
 import sys,os;os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
+import pandas as pd
 import h5py
 from genome import Genome
 from phenome import Phenome
