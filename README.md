@@ -5,11 +5,17 @@ This library is a brand-spanking-new implementation of <a href = "http://www.cs.
 <br>
 The primary benefit of using this neuroevolution library is that it distributes either your model or data (depending on your choice of parallelism).<br>
 
+<h3>MUTATE Installation</h3>
+
+```
+pip install --user tensorflow pandas numpy tables reprint h5py
+git clone https://github.com/abrahamrhoffman/MUTATE.git
+cd MUTATE
+```
+
 <h3>Development XOR Example</h3>
 
 ```
-git clone https://github.com/abrahamrhoffman/MUTATE.git
-cd MUTATE
 python xor.py
 ...
 Expected:
