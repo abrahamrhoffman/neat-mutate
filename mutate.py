@@ -27,9 +27,13 @@ class NEAT(object):
         self.population(GENOME, PHENOME)  # Send GENOME and PHENOME to the population pool to kickstart evolution
 
     def population(self, GENOME, PHENOME):
-        with pd.HDFStore('population.hdf5') as population: # Generate or load an HDF5 filestore for the population
-            population['member0'] = GENOME # Add our initial member to the population
-            population['member1'] = GENOME # Add an identical member to the population
+        h5py.File('population.hdf5')                # Generate or load an HDF5 filestore for the population
+        population = pd.HDFStore('population.hdf5') # Load the Filestore
+
+        population['member0'] = GENOME              # Add our initial member to the population
+        population['member1'] = GENOME              # Add an identical member to the population
 
         print(population['member0'])
         print(population['member1'])
+
+        population.close()                          # Close the file
