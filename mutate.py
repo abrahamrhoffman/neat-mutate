@@ -31,4 +31,5 @@ class NEAT(object):
             population['member0'] = GENOME # Add our initial member to the population
             population['member1'] = GENOME # Add an identical member to the population
 
-        print(population)
+        print(population['member0'])
+        print(population['member1'])
