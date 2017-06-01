@@ -49,6 +49,7 @@ Development Features:
 
 <h4>Change Log</h4>
 
+- 05-30-2017: Full Mutation Commit: Add Node & Add Connection 
 - 05-15-2017: Pandas refactor, ops streamlined and pushed to Tensorflow
 - 05-07-2017: Single-pass XOR initial commit 
 - 05-01-2017: Genome, Phenome, Fitness initial commit
