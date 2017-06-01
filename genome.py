@@ -39,6 +39,7 @@ class Genome(object):
         Two types of structural mutations: Add Connection or Node
         '''
         ### Add Connection ###
+        
 
         ### Add Node ###
 
