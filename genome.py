@@ -48,12 +48,12 @@ class Genome(object):
         ## Discover how many nodes exist, then add a new one in sequential order
         new_node_num = list(set(df['node'].tolist()))[-1] + 1
         new_node_out = int(df.iloc[dup_node_ix]['in'])
-        innov = list(set(df['node'].tolist()))[-1]
+        innov = list(set(df['innovation'].tolist()))[-1]
         ## Create the new node with weight of (1)
         df.loc[len(df)] = [new_node_num,'hidden',new_node_out,dup_node_out,1,True,(innov + 2)]
         new_node_ix = (df.iloc[-1].name)
         ## Update the duplicated node so it's output is the new node
-        df.iloc[dup_node_ix] = df.iloc[dup_node_ix].set_value('out', (new_node_ix))
+        df.iloc[dup_node_ix] = df.iloc[dup_node_ix].set_value('out', (df.iloc[new_node_ix]['node']))
         ## Disable the original node
         df.iloc[split] = df.iloc[split].set_value('enabled', False)
         ## Update the duplicated node's innovation number
@@ -61,7 +61,7 @@ class Genome(object):
         return df
 
     def add_connection(self,df):
-        # Add a new (non-duplicate) connection to the df
+        # Add a new (non-duplicate) connection to the Genome
         ## Select an output or hidden node's index as the outbound connection
         potential_mutations = (df['enabled'] == True) & (df['type'] != ('sensor'))
         nodes_to_connect = potential_mutations[potential_mutations == True].index.tolist()
@@ -70,9 +70,7 @@ class Genome(object):
         potential_mutations = (df['enabled'] == True) & (df['type'] != ('output'))
         nodes_to_connect = potential_mutations[potential_mutations == True].index.tolist()
         node_connect_in = random.choice(nodes_to_connect)
-        print(node_connect_in)
-        print(node_connect_out)
-        ## Instantiate the connection gene in the df
+        ## Instantiate the connection gene in the Genome
         innov = (list(set(df['innovation'].tolist()))[-1])
         ## Create the New Connection
         conn = [df.iloc[node_connect_in]['node'],df.iloc[node_connect_in]['type'],df.iloc[node_connect_in]['node'],df.iloc[node_connect_out]['node'],(np.random.uniform(-1.0,1.0)),True,(innov + 1)]
@@ -83,23 +81,10 @@ class Genome(object):
         for ix,ser in df[['node','in','out']].iterrows():
             if ser.tolist() == conn_check_A:
                 not_dup = False
-                print('Duplicate')
         for ix,ser in df[['node', 'out']].iterrows():
             if ser.tolist() == conn_check_B:
                 not_dup = False
-                print('Duplicate')
         ## If no duplicates, then add the new connection
         if not_dup:
             df.loc[len(df)] = conn
         return df
-
-    def mutate(self, GENOME):
-        '''
-        Two types of structural mutations: Add Connection or Node
-        '''
-        ### Add Connection ###
-
-
-        ### Add Node ###
-
-        return GENOME
