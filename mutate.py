@@ -38,7 +38,7 @@ class NEAT(object):
 
         population.close()                          # Close the file
 
-    def add_node(df):
+    def add_node(self,df):
         # Select a synapse to split (and disable the connection), then update innovation numbers
         ## Select a connection from the sensor nodes randomly
         potential_mutations = (df['enabled'] == True) & (df['type'] != ('output'))
@@ -63,7 +63,7 @@ class NEAT(object):
         df.iloc[dup_node_ix] = df.iloc[dup_node_ix].set_value('innovation', (innov + 1))
         return df
 
-def add_connection(df):
+def add_connection(self,df):
         # Add a new (non-duplicate) connection to the df
         ## Select an output or hidden node's index as the outbound connection
         potential_mutations = (df['enabled'] == True) & (df['type'] != ('sensor'))
