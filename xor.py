@@ -11,13 +11,14 @@ def main():
     data = X,Y
 
     ### Use Mutate's NEAT Algorithm ###
-    mutate = NEAT(data)
-    mutate.run()
-    #results = mutate.run()
+    experiment = NEAT(data)
+    experiment.run()
+    #results = experiment.run()
     #results.save('xor.model')
 
-    ### (Optional) Clean Generated PYC Files ###
-    Popen('rm -f *.pyc',shell=True)
+    ### (Optional) Clean Generated Files ###
+    Popen('rm -f *.pyc',shell=True)     # Remove pyc files
+    Popen('rm -f *.hdf5',shell=True)    # Remove hdf5 files
 
 if __name__ == "__main__":
     main()
