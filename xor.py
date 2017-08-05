@@ -2,7 +2,7 @@
 from __future__ import print_function
 from subprocess import Popen
 import numpy as np
-from mutate import NEAT
+import mutate
 
 def main():
     ### Create XOR Data ###
@@ -11,7 +11,7 @@ def main():
     data = X,Y
 
     ### Use Mutate's NEAT Algorithm ###
-    experiment = NEAT(data)
+    experiment = mutate.NEAT(data)
     experiment.run()
     #results = experiment.run()
     #results.save('xor.model')
