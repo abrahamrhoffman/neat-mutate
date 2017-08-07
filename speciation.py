@@ -2,7 +2,7 @@ from __future__ import print_function
 import pandas as pd
 import h5py
 
-class speciation(object):
+class Speciate(object):
     '''
     Speciating Genomes
     '''
@@ -10,7 +10,7 @@ class speciation(object):
     def __init__(self, GENOMES):
         self.genomes = GENOMES
 
-    def Speciate(self, GENOMES):
+    def speciate(self, GENOMES):
         '''
         Speciate a set of GENOMES.
         '''
