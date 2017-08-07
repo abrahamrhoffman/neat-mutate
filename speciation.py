@@ -10,7 +10,7 @@ class Speciate(object):
     def __init__(self, GENOMES):
         self.genomes = GENOMES
 
-    def speciate(self, GENOMES):
+    def speciate(self):
         '''
         Speciate a set of GENOMES.
         '''

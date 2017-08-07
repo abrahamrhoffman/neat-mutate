@@ -28,4 +28,5 @@ class NEAT(object):
 
         #### Phase II : Speciate the GENOME ####
         s = Speciate(GENOME)              # Speciate the initial GENOME
+        s.speciate()
         #self.population(GENOME, PHENOME)  # Send GENOME and PHENOME to the population pool to kickstart evolution
