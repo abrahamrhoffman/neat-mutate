@@ -25,6 +25,4 @@ class NEAT(object):
         FITNESS = f.evaluate()            # Evaluate Phenome Fitness
         r = Report(self.data,FITNESS)     # Instantiate the Report Class
         REPORT = r.start()                # Print the Report to StdOut
-        s = Speciate(GENOME)              # Instantiate Speciation Class
-        s.duplicate()                     # Duplicate the initial GENOME
-        
+        g.duplicate(GENOME)               # Duplicate the initial Genome. This is the Genome created 

@@ -35,6 +35,21 @@ class Genome(object):
 
         return GENOME
 
+    def duplicate(self, GENOME):
+        '''
+        Duplicate the initial Genome. This method also servers to kickstart the mutation and speciation cycle
+        '''
+        h5py.File('population.hdf5')                # Generate or load an HDF5 filestore for the population
+        population = pd.HDFStore('population.hdf5') # Load the Filestore
+
+        population['member0'] = GENOME              # Add our initial member to the population
+        population['member1'] = GENOME              # Add an identical member to the population
+
+        print(population['member0'])
+        print(population['member1'])
+
+        population.close()                          # Close the file
+
     def add_node(self,df):
         # Select a synapse to split (and disable the connection), then update innovation numbers
         ## Select a connection from the sensor nodes randomly
