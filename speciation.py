@@ -10,7 +10,7 @@ class Speciate(object):
     def __init__(self, GENOME):
         self.genome = GENOME
 
-    def population(self):
+    def duplicate(self):
         '''
         Speciate a set of GENOMES.
         '''

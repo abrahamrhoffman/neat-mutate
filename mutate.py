@@ -16,7 +16,7 @@ class NEAT(object):
         self.data = data
 
     def run(self):
-        #### Phase I : Genome, Phenome, Fitness, Mutation ####
+        #### Phase I : Genome, Phenome, Fitness, duplicate initial Genome, then Mutate ####
         g = Genome(self.data)             # Instantiate the Genome Class
         GENOME = g.create()               # Create an indirectly encoded (NEAT) Genome
         p = Phenome(GENOME)               # Instantiate the Phenome Class with Genome
@@ -25,8 +25,6 @@ class NEAT(object):
         FITNESS = f.evaluate()            # Evaluate Phenome Fitness
         r = Report(self.data,FITNESS)     # Instantiate the Report Class
         REPORT = r.start()                # Print the Report to StdOut
-
-        #### Phase II : Speciate the GENOME ####
-        s = Speciate(GENOME)              # Speciate the initial GENOME
-        s.population()
-        #self.population(GENOME, PHENOME)  # Send GENOME and PHENOME to the population pool to kickstart evolution
+        s = Speciate(GENOME)              # Instantiate Speciation Class
+        s.duplicate()                     # Duplicate the initial GENOME
+        
