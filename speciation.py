@@ -16,7 +16,7 @@ class Speciate(object):
         '''
         genome_count = len(self.genomes)
         print(genome_count)
-        print(GENOMES)
+        print(self.genomes)
 
     def population(self, GENOME, PHENOME):
         h5py.File('population.hdf5')                # Generate or load an HDF5 filestore for the population
