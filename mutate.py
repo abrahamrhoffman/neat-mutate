@@ -25,6 +25,6 @@ class NEAT(object):
         FITNESS = f.evaluate()            # Evaluate Phenome Fitness
         r = Report(self.data,FITNESS)     # Instantiate the Report Class
         REPORT = r.start()                # Print the Report to StdOut
-        g.duplicate(GENOME)               # Duplicate the initial Genome. This is the Genome created
+        population = g.duplicate(GENOME)  # Duplicate the initial Genome. This is the Genome created
         print(population['member0'])
         #g.mutate
