@@ -38,5 +38,5 @@ class NEAT(object):
 
         f = Fitness(self.data,PHENOME)
         FITNESS = f.evaluate()
-        r = Report(self.data,FITNESS)
-        REPORT = r.start()
+        #r = Report(self.data,FITNESS)
+        #REPORT = r.start()
