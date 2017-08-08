@@ -42,14 +42,9 @@ class Genome(object):
         '''
         h5py.File('population.hdf5')                # Generate or load an HDF5 filestore for the population
         population = pd.HDFStore('population.hdf5') # Load the Filestore
-
         population['member0'] = GENOME              # Add our initial member to the population
         population['member1'] = GENOME              # Add an identical member to the population
-
-        print(population['member0'])
-        print(population['member1'])
-
-        population.close()                          # Close the file
+        #population.close()                          # Close the file
 
     def add_node(self, GENOME):
         # Select a synapse to split (and disable the connection), then update innovation numbers
