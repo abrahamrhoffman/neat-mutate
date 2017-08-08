@@ -44,6 +44,7 @@ class Genome(object):
         population = pd.HDFStore('population.hdf5') # Load the Filestore
         population['member0'] = GENOME              # Add our initial member to the population
         population['member1'] = GENOME              # Add an identical member to the population
+        return population
         #population.close()                          # Close the file
 
     def add_node(self, GENOME):
