@@ -45,7 +45,6 @@ class Genome(object):
         population['member0'] = GENOME              # Add our initial member to the population
         population['member1'] = GENOME              # Add an identical member to the population
         return population
-        #population.close()                          # Close the file
 
     def add_node(self, GENOME):
         # Select a synapse to split (and disable the connection), then update innovation numbers

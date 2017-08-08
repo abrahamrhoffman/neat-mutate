@@ -27,4 +27,6 @@ class NEAT(object):
         REPORT = r.start()                # Print the Report to StdOut
         population = g.duplicate(GENOME)  # Duplicate the initial Genome. This is the Genome created
         print(population['member0'])
+        g.add_node(population['member0'])
+        print(population['member0'])
         #g.mutate
