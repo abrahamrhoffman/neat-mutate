@@ -17,16 +17,22 @@ class NEAT(object):
 
     def run(self):
         #### Phase I : Genome, Phenome, Fitness, duplicate initial Genome, then Mutate ####
-        g = Genome(self.data)             # Instantiate the Genome Class
-        GENOME = g.create()               # Create an indirectly encoded (NEAT) Genome
-        p = Phenome(GENOME)               # Instantiate the Phenome Class with Genome
-        PHENOME = p.create()              # Create a Phenome (Neural Network)
-        f = Fitness(self.data,PHENOME)    # Instantiate Phenome Fitness (Tensorflow)
-        FITNESS = f.evaluate()            # Evaluate Phenome Fitness
-        r = Report(self.data,FITNESS)     # Instantiate the Report Class
-        REPORT = r.start()                # Print the Report to StdOut
-        population = g.duplicate(GENOME)  # Duplicate the initial Genome. This is the Genome created
+        g = Genome(self.data)                       # Instantiate the Genome Class
+        GENOME = g.create()                         # Create an indirectly encoded (NEAT) Genome
+        p = Phenome(GENOME)                         # Instantiate the Phenome Class with Genome
+        PHENOME = p.create()                        # Create a Phenome (Neural Network)
+        f = Fitness(self.data,PHENOME)              # Instantiate Phenome Fitness (Tensorflow)
+        FITNESS = f.evaluate()                      # Evaluate Phenome Fitness
+        r = Report(self.data,FITNESS)               # Instantiate the Report Class
+        REPORT = r.start()                          # Print the Report to StdOut
+        population = g.duplicate(GENOME)            # Duplicate the initial Genome. This is the Genome created
         print(population['member0'])
         member = g.add_node(population['member0'])
         print(member)
-        #g.mutate
+
+        del p;del f;del r
+
+        p = Phenome(member)
+        PHENOME = p.create()
+        print(PHENOME)
+        
