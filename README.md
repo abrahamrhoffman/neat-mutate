@@ -43,6 +43,7 @@ cd MUTATE
 <i>This library is under active development.</i>
 
 ## Change Log
+- 08-02-2017: Re-factoring population class to accept genomes as 'jobs' to mutate or kill based on fitness
 - 05-30-2017: Full Mutation Commit: Add Node & Add Connection 
 - 05-15-2017: Pandas refactor, ops streamlined and pushed to Tensorflow
 - 05-07-2017: Single-pass XOR initial commit 
