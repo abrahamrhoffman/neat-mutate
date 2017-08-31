@@ -1,11 +1,11 @@
 from __future__ import print_function
 import sys,os;os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
 import pandas as pd
-import h5py
 from genome import Genome
 from phenome import Phenome
 from fitness import Fitness
-from report import Report
+from progress import Progress
+from speciation import Speciate
 
 class NEAT(object):
     '''
@@ -16,24 +16,28 @@ class NEAT(object):
         self.data = data
 
     def run(self):
-        g = Genome(self.data)             # Instantiate the Genome Class
-        GENOME = g.create()               # Create an indirectly encoded (NEAT) Genome
-        p = Phenome(GENOME)               # Instantiate the Phenome Class with Genome
-        PHENOME = p.create()              # Create a Phenome (Neural Network)
-        f = Fitness(self.data,PHENOME)    # Instantiate Phenome Fitness (Tensorflow)
-        FITNESS = f.evaluate()            # Evaluate Phenome Fitness
-        r = Report(self.data,FITNESS)     # Instantiate the Report Class
-        REPORT = r.start()                # Print the Report to StdOut
-        #self.population(GENOME, PHENOME)  # Send GENOME and PHENOME to the population pool to kickstart evolution
-
-    def population(self, GENOME, PHENOME):
-        h5py.File('population.hdf5')                # Generate or load an HDF5 filestore for the population
-        population = pd.HDFStore('population.hdf5') # Load the Filestore
-
-        population['member0'] = GENOME              # Add our initial member to the population
-        population['member1'] = GENOME              # Add an identical member to the population
-
-        print(population['member0'])
-        print(population['member1'])
-
-        population.close()                          # Close the file
+        #### Phase I : Genome, Phenome, Fitness, duplicate initial Genome, then Mutate ####
+        p = Progress()                                # Instantiate the Progress Class
+        PROGRESS = p.start()                          # Print the Progress to StdOut
+#        g = Genome(self.data)                       # Instantiate the Genome Class
+#        GENOME = g.create()                         # Create an indirectly encoded (NEAT) Genome
+#        p = Phenome(GENOME)                         # Instantiate the Phenome Class with Genome
+#        PHENOME = p.create()                        # Create a Phenome (Neural Network)
+#        f = Fitness(self.data,PHENOME)              # Instantiate Phenome Fitness (Tensorflow)
+#        FITNESS = f.evaluate()                      # Evaluate Phenome Fitness
+#        population = g.duplicate(GENOME)            # Duplicate the initial Genome. This is the Genome created
+#        print(population['member0'])
+#        member = g.add_node(population['member0'])
+#        print(member)
+#
+#        del p;del f;del r
+#
+#        p = Phenome(member)
+#        PHENOME = p.create()
+#        print(PHENOME)
+#
+#        f = Fitness(self.data,PHENOME)
+#        print(f)
+        #FITNESS = f.evaluate()
+        #r = Report(self.data,FITNESS)
+        #REPORT = r.start()
