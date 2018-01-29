@@ -1,6 +1,14 @@
 ## mutate
 Distributed Neuroevolution <i>v0.1 (alpha)</i>
 
+*v0.2 Introduces several major changes:
+- PyTorch completely replaces Tensorflow
+- PyTorch to TensorRT for inference. This squashes fp16 to int8 for speedy inference.
+- Parquet instead of hdf5
+- Ray for distributed job scheduling / logging
+- Ray for parallelized phenome execution
+- [During refactor, please expect increased instability in the master branch]
+
 This library is a brand-spanking-new implementation of <a href = "http://www.cs.ucf.edu/~kstanley/">Kenneth O. Stanley's</a> neuroevolution algorithm NEAT. <a href = "http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf">NEAT</a> (Neuroevolution of Augmenting Topologies) is a novel method for modeling Neural Networks. Instead of using back-propagation, you simply grow Neural Networks over time. Initially, this may seem like a disorganized way to solve a problem. However, as <a href="https://www.cs.ucf.edu/~kstanley/neat.html">Stanley et. al. demonstrate</a> the fitness function cuts through the dreaded dimensionality curse and solves the problem space quickly.<br>
 <br>
 
