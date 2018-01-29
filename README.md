@@ -4,7 +4,7 @@ Distributed Neuroevolution <i>v0.15 [Upgrading to v0.2]</i>
 ```
 v0.2 Introduces several major changes:
 - PyTorch completely replaces Tensorflow
-- PyTorch to TensorRT for inference. This squashes fp16 to int8 for speedy inference.
+- PyTorch to TensorRT for inference [Squash fp16 to int8]
 - Parquet instead of hdf5
 - Ray for distributed job scheduling / logging
 - Ray for parallelized phenome execution
