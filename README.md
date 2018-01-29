@@ -3,12 +3,20 @@ Distributed Neuroevolution <i>v0.15 [Upgrading to v0.2]</i>
 
 ```
 v0.2 Introduces several major changes:
+
+### Library Changes ###
 - PyTorch completely replaces Tensorflow
 - PyTorch to TensorRT for inference [Squash fp16 to int8]
 - Parquet instead of hdf5
 - Ray for distributed job scheduling / logging
 - Ray for parallelized phenome execution
-- [During refactor, please expect increased instability in the master branch]
+
+### Algorithm Changes ###
+- Ablation and pruning is fully in effect
+- Connection costing for modular and regular neural networks
+- NEAT to HyperNEAT transition, with planned ES-HyperNEAT as the v1.0 target
+
+*** [During refactor, please expect increased instability in the master branch]
 ```
 
 This library is a brand-spanking-new implementation of <a href = "http://www.cs.ucf.edu/~kstanley/">Kenneth O. Stanley's</a> neuroevolution algorithm NEAT. <a href = "http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf">NEAT</a> (Neuroevolution of Augmenting Topologies) is a novel method for modeling Neural Networks. Instead of using back-propagation, you simply grow Neural Networks over time. Initially, this may seem like a disorganized way to solve a problem. However, as <a href="https://www.cs.ucf.edu/~kstanley/neat.html">Stanley et. al. demonstrate</a> the fitness function cuts through the dreaded dimensionality curse and solves the problem space quickly.<br>
@@ -53,6 +61,7 @@ cd MUTATE
 <i>This library is under active development.</i>
 
 ## Change Log
+- 01-28-2017: v0.2 complete overhaul underway. Please expect instability in the master branch.
 - 08-02-2017: Re-factoring population class to accept genomes as 'jobs' to mutate or kill based on fitness
 - 05-30-2017: Full Mutation Commit: Add Node & Add Connection 
 - 05-15-2017: Pandas refactor, ops streamlined and pushed to Tensorflow
