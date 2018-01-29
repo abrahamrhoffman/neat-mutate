@@ -1,5 +1,5 @@
 ## mutate
-Distributed Neuroevolution <i>v0.15 [Upgraing to v0.2]</i>
+Distributed Neuroevolution <i>v0.15 [Upgrading to v0.2]</i>
 
 ```
 v0.2 Introduces several major changes:
