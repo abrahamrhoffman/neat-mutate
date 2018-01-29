@@ -6,7 +6,6 @@ v0.2 Introduces several major changes:
 
 ### Library Changes ###
 - PyTorch completely replaces Tensorflow
-- PyTorch to TensorRT for inference [Squash fp16 to int8]
 - Parquet instead of hdf5
 - Ray for distributed job scheduling / logging
 - Ray for parallelized phenome execution
