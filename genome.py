@@ -92,7 +92,7 @@ class Genome(object):
     def mutate(self, aGenomeDF):
         aMutation = random.choice(['node', 'connection'])
     	if aMutation == ("node"):
-            result = g.add_node(aGenomeDF)
+            result = self.add_node(aGenomeDF)
     	if aMutation == ("connection") :
-            result = g.add_connection(aGenomeDF)
+            result = self.add_connection(aGenomeDF)
         return result
