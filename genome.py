@@ -21,11 +21,11 @@ class Genome(object):
         Y_count = (X_count + Y.shape[-1])
 
         node_genes_labels = ['node','type']                                      # Define Node Labels
-        node_genes = [[i, 'sensor'] for i in xrange(1, X_count)]                 # Generate Sensor Nodes
-        [node_genes.extend([[i, 'output']]) for i in xrange(X_count, Y_count)]   # Generate Output Nodes
+        node_genes = [[i, 'sensor'] for i in range(1, X_count)]                  # Generate Sensor Nodes
+        [node_genes.extend([[i, 'output']]) for i in range(X_count, Y_count)]    # Generate Output Nodes
         nodes = pd.DataFrame.from_records(node_genes, columns=node_genes_labels) # Convert Nodes to DataFrame
         connection_genes_labels = ['in','out','weight','enabled','innovation']   # Define Connection Labels
-        connection_genes = [[i] for i in xrange(1, Y_count)]                     # Generate Input Connections
+        connection_genes = [[i] for i in range(1, Y_count)]                      # Generate Input Connections
         [i.extend([j[0]]) for i in connection_genes for j in node_genes if ('output') in j] # Generate Output Connections
         [i.extend([np.random.uniform(-1.0,1.0)]) for i in connection_genes]                 # Generate Connection Weights
         [i.extend([True]) for i in connection_genes]                                        # Enable Initial Connection Genes
@@ -91,8 +91,8 @@ class Genome(object):
 
     def mutate(self, aGenomeDF):
         aMutation = random.choice(['node', 'connection'])
-    	if aMutation == ("node"):
-            result = self.add_node(aGenomeDF)
-    	if aMutation == ("connection") :
-            result = self.add_connection(aGenomeDF)
+        if aMutation == ("node"):
+            result = g.add_node(aGenomeDF)
+        if aMutation == ("connection") :
+            result = g.add_connection(aGenomeDF)
         return result
