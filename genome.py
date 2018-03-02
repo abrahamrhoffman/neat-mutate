@@ -88,3 +88,11 @@ class Genome(object):
         if not_dup:
             df.loc[len(df)] = conn
         return df
+
+    def mutate(self, aGenomeDF):
+        aMutation = random.choice(['node', 'connection'])
+    	if aMutation == ("node"):
+            result = g.add_node(aGenomeDF)
+    	if aMutation == ("connection") :
+            result = g.add_connection(aGenomeDF)
+        return result
