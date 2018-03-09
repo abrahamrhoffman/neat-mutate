@@ -6,7 +6,7 @@ class Visualize(object):
     Mutate Visualization: Using PyGraphViz and Dot Syntax
     '''
 
-    def makeGraph(aDataFrameToGraph):
+    def makeGraph(self, aDataFrameToGraph):
         onlyEnabledDF = aDataFrameToGraph.loc[aDataFrameToGraph['enabled'] == True]
 
         # Segregate the Sensor Nodes
