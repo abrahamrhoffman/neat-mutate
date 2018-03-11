@@ -13,13 +13,8 @@ class Visualize(object):
         # Node and Edge Logic
         connectionList = []
         for ix,row in removeOutputDF[['node','in','out']].iterrows():
-            # If it is a sensor
-            if row['node'] == row['in']:
-                connectionList.append(row[['in', 'out']].values.tolist())
-            # If it isn't a sensor, ensure both edges are created
-            else:
-                connectionList.append(row[['in', 'node']].values.tolist())
-                connectionList.append(row[['node', 'out']].values.tolist())
+            # Append Node and its out-bound edge to list
+            connectionList.append(row[['node', 'out']].values.tolist())
 
         # Segregate the Sensor Nodes
         sensorDF = onlyEnabledDF.loc[onlyEnabledDF['type'] == "sensor"]
