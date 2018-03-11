@@ -1,5 +1,6 @@
 from __future__ import print_function
-import tensorflow as tf
+import numpy as np
+import torch
 
 class Fitness(object):
     '''
@@ -7,22 +8,20 @@ class Fitness(object):
     '''
 
     def __init__(self, data, PHENOME):
-        self.data = data
+        X,Y = data
+        self.X = torch.from_numpy(X)
+        self.Y = torch.from_numpy(Y)
         self.phenome = PHENOME
 
-    def evaluate(self):
-        X,Y = self.data
-        x_,y_,op = self.phenome
+        if torch.cuda.is_available():
+            self.GPUs = [GPU for GPU in range(torch.cuda.device_count())]
 
-        sess = tf.Session()
-
-        result = sess.run(op, feed_dict={x_: X, y_: Y})
-        error = sess.run(tf.sqrt(tf.reduce_mean(tf.square(tf.subtract(Y, result)))))
-
-        if error >= 0.0001:
-            solved = False
-            return result,error,solved
-
-        if error <= 0.0001:
-            solved = True
-            return result,error,solved
+    def eval(self):
+        try:
+            result = torch.sigmoid(torch.matmul(self.X, self.phenome)).cuda(random.choice(self.GPUs))
+            forwardError = np.sqrt(torch.mean(torch.pow((Y_ - result), 2).cuda()))
+            return forwardError
+        except:
+            result = torch.sigmoid(torch.matmul(self.X, self.phenome))
+            forwardError = np.sqrt(torch.mean(torch.pow((Y_ - result), 2)))
+            return forwardError
