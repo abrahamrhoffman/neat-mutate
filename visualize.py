@@ -6,15 +6,20 @@ class Visualize(object):
     Mutate Visualization: Using PyGraphViz and Dot Syntax
     '''
 
-    def makeGraph(self, aDataFrameToGraph):
+    def create_graph(self, aDataFrameToGraph):
         onlyEnabledDF = aDataFrameToGraph.loc[aDataFrameToGraph['enabled'] == True]
         removeOutputDF = onlyEnabledDF.loc[onlyEnabledDF['type'] != ("output")]
 
         # Node and Edge Logic
         connectionList = []
-        for ix,row in removeOutputDF[['node','in','out']].iterrows():
-            # Append Node and its out-bound edge to list
-            connectionList.append(row[['node', 'out']].values.tolist())
+        for ix,row in removeOutputDF[['type','node','in','out']].iterrows():
+            # If a sensor node
+            if row['type'] == ("sensor"):
+                connectionList.append(row[['node', 'out']].values.tolist())
+            # If a hidden node
+            if row['type'] == ("hidden"):
+                connectionList.append(row[['in', 'node']].values.tolist())
+                connectionList.append(row[['node', 'out']].values.tolist())
 
         # Segregate the Sensor Nodes
         sensorDF = onlyEnabledDF.loc[onlyEnabledDF['type'] == "sensor"]
@@ -30,6 +35,11 @@ class Visualize(object):
         outputDF = onlyEnabledDF.loc[onlyEnabledDF['type'] == "output"]
         # Create a list of output nodes to cluster
         outputNodes = outputDF['node'].values.tolist()
+
+        # Remove non-unique nodes and edges
+        connectionList = [tuple(ele) for ix,ele in enumerate(connectionList)]
+        connectionList = set(connectionList)
+        connectionList = [list(ele) for ix,ele in enumerate(connectionList)]
 
         # Create the dot syntax map
         graphString = ("digraph {")
