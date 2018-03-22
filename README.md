@@ -1,21 +1,11 @@
 ## mutate
-Distributed Neuroevolution <i>v0.15 [Upgrading to v0.2]</i>
+Distributed Neuroevolution : v0.2.0 `[alpha]`
 
 ```
-v0.2 Introduces several major changes:
-
-### Library Changes ###
-- PyTorch completely replaces Tensorflow
-- Parquet instead of hdf5
-- Ray for distributed job scheduling / logging
-- Ray for parallelized phenome execution
-
-### Algorithm Changes ###
-- Ablation and pruning is fully in effect
-- Connection costing for modular and regular neural networks
-- NEAT to HyperNEAT transition, with planned ES-HyperNEAT as the v1.0 target
-
-*** [During refactor, please expect increased instability in the master branch]
+### Algorithm features for v2.0.1 ###
+- NEAT improvements     : Speciation, Species (adjusted) Fitness, Global Fitness updates
+- Custom Functions      : Ablation and honing. [Pending Medium article for definition and explanation]
+- Neuroevolution Tuning : Connection costing for modular and regular neural networks
 ```
 
 This library is a brand-spanking-new implementation of <a href = "http://www.cs.ucf.edu/~kstanley/">Kenneth O. Stanley's</a> neuroevolution algorithm NEAT. <a href = "http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf">NEAT</a> (Neuroevolution of Augmenting Topologies) is a novel method for modeling Neural Networks. Instead of using back-propagation, you simply grow Neural Networks over time. Initially, this may seem like a disorganized way to solve a problem. However, as <a href="https://www.cs.ucf.edu/~kstanley/neat.html">Stanley et. al. demonstrate</a> the fitness function cuts through the dreaded dimensionality curse and solves the problem space quickly.<br>
@@ -46,9 +36,12 @@ The primary benefit of using this neuroevolution library is that it distributes 
 ## Installation
 
 ```
-pip install --user tensorflow pandas numpy tables reprint h5py
-git clone https://github.com/abrahamrhoffman/MUTATE.git
-cd MUTATE
+# Follow PyTorch installation requirements here: http://pytorch.org/
+$ pip install --user torchvision [not needed if already installed]
+$ pip install --user pandas numpy fastparquet ray pyarrow minio
+$ git clone https://github.com/abrahamrhoffman/mutate.git
+$ cd mutate
+$ python xor.py
 ```
 
 ## Alpha Features
@@ -56,11 +49,14 @@ cd MUTATE
 - Auto-defines a full Neural Network of nodes and connections (Genome)
 - Auto-creates a Neural Network for your data (Phenome)
 - Evaluates Neural Network fitness
+- Grows arbitrary Neural Networks: removes non-performant nns and generates more nns similiar to the most performant
 
 <i>This library is under active development.</i>
 
 ## Change Log
-- 01-28-2017: v0.2 complete overhaul underway. Please expect instability in the master branch.
+- 03-22-2018: v0.2.1 Algorithm updates in-flight: NEAT improvements, ablation and honing, and connection costing
+- 02-01-2018: v0.2.0 Update complete: Torch, Ray, Object Storage and Parquet.
+- 01-28-2018: v0.2.0 complete overhaul underway. Please expect instability in the master branch.
 - 08-02-2017: Re-factoring population class to accept genomes as 'jobs' to mutate or kill based on fitness
 - 05-30-2017: Full Mutation Commit: Add Node & Add Connection 
 - 05-15-2017: Pandas refactor, ops streamlined and pushed to Tensorflow
