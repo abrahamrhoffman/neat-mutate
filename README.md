@@ -1,7 +1,7 @@
-## mutate
-Distributed Neuroevolution : v0.2.0 `[alpha]`
-
+## mutate 
 [![Build Status](https://travis-ci.org/abrahamrhoffman/mutate.svg?branch=master)](https://travis-ci.org/abrahamrhoffman/mutate) [![Coverage Status](https://coveralls.io/repos/github/abrahamrhoffman/mutate/badge.svg?branch=master)](https://coveralls.io/github/abrahamrhoffman/mutate?branch=master)
+
+Distributed Neuroevolution : v0.2.0 `[alpha]`
 
 ```
 ### Algorithm features for v2.0.1 ###
