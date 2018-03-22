@@ -1,6 +1,8 @@
 ## mutate
 Distributed Neuroevolution : v0.2.0 `[alpha]`
 
+[![Coverage Status](https://coveralls.io/repos/github/abrahamrhoffman/mutate/badge.svg?branch=master)](https://coveralls.io/github/abrahamrhoffman/mutate?branch=master)
+
 ```
 ### Algorithm features for v2.0.1 ###
 - NEAT improvements     : Speciation, Species (adjusted) Fitness, Global Fitness updates
