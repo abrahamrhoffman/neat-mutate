@@ -57,12 +57,12 @@ $ python xor.py
 <i>This library is under active development.</i>
 
 ## Change Log
-- 03-22-2018: v0.2.1 Algorithm updates in-flight: NEAT improvements, ablation and honing, and connection costing
-- 02-01-2018: v0.2.0 Update complete: Torch, Ray, Object Storage and Parquet.
-- 01-28-2018: v0.2.0 complete overhaul underway. Please expect instability in the master branch.
-- 08-02-2017: Re-factoring population class to accept genomes as 'jobs' to mutate or kill based on fitness
-- 05-30-2017: Full Mutation Commit: Add Node & Add Connection 
-- 05-15-2017: Pandas refactor, ops streamlined and pushed to Tensorflow
-- 05-07-2017: Single-pass XOR initial commit 
-- 05-01-2017: Genome, Phenome, Fitness initial commit
-- 04-21-2017: Multi-GPU and distributed Genome design
+- 03-22-2018: (v0.2.1) Algorithm updates in-flight: NEAT improvements, ablation and honing, and connection costing
+- 02-01-2018: (v0.2.0) Update complete: Torch, Ray, Object Storage and Parquet.
+- 01-28-2018: (v0.2.0) Complete overhaul underway. Please expect instability in the master branch.
+- 08-02-2017: (v0.1.5) Re-factoring population class to accept genomes as 'jobs' to mutate or kill based on fitness
+- 05-30-2017: (v0.1.4) Full Mutation Commit: Add Node & Add Connection 
+- 05-15-2017: (v0.1.1) Pandas refactor, ops streamlined and pushed to Tensorflow
+- 05-07-2017: (v0.1.0) Single-pass XOR initial commit 
+- 05-01-2017: (v0.0.2) Genome, Phenome, Fitness initial commit
+- 04-21-2017: (v0.0.1) Multi-GPU and distributed Genome design
