@@ -4,8 +4,11 @@ Distributed Neuroevolution : v0.2.0 `[alpha]`
 ```
 ### Algorithm features for v2.0.1 ###
 - NEAT improvements     : Speciation, Species (adjusted) Fitness, Global Fitness updates
-- Custom Functions      : Ablation and honing. [Pending Medium article for definition and explanation]
+                          http://nn.cs.utexas.edu/?nodine:ugthesis10
+- Custom Functions      : Ablation and honing as invented by Abe Hoffman
+                          [Pending Medium article for definition and explanation]
 - Neuroevolution Tuning : Connection costing for modular and regular neural networks
+                          http://www.evolvingai.org/huizinga-mouret-clune-2014-evolving-neural-networks-are
 ```
 
 This library is a brand-spanking-new implementation of <a href = "http://www.cs.ucf.edu/~kstanley/">Kenneth O. Stanley's</a> neuroevolution algorithm NEAT. <a href = "http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf">NEAT</a> (Neuroevolution of Augmenting Topologies) is a novel method for modeling Neural Networks. Instead of using back-propagation, you simply grow Neural Networks over time. Initially, this may seem like a disorganized way to solve a problem. However, as <a href="https://www.cs.ucf.edu/~kstanley/neat.html">Stanley et. al. demonstrate</a> the fitness function cuts through the dreaded dimensionality curse and solves the problem space quickly.<br>
