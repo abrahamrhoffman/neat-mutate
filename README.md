@@ -35,7 +35,7 @@ Error:
 ## Motivation
 
 The primary benefit of using this neuroevolution library is that it distributes either your model or data (depending on your choice of parallelism). This is a critical feature as it allows dense problem spaces to be traversed quickly. To find out more, please read here:
-- https://www.cs.cmu.edu/afs/cs/project/jair/pub/volume21/stanley04a-html/node3.html#SECTION00034000000000000000
+- Minimizing Dimensionality: https://goo.gl/vtU63o
 
 ## Installation
 
