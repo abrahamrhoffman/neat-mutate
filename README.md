@@ -5,7 +5,7 @@ Distributed Neuroevolution : v0.2.0 `[alpha]`
 ### Algorithm features for v2.0.1 ###
 - NEAT improvements     : Speciation, Species (adjusted) Fitness, Global Fitness updates
                           http://nn.cs.utexas.edu/?nodine:ugthesis10
-- Custom Functions      : Ablation and honing as invented by Abe Hoffman
+- Custom Functions      : Species ablation and honing invented by Abe Hoffman
                           [Pending Medium article for definition and explanation]
 - Neuroevolution Tuning : Connection costing for modular and regular neural networks
                           http://www.evolvingai.org/huizinga-mouret-clune-2014-evolving-neural-networks-are
