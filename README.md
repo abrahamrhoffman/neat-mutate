@@ -58,6 +58,7 @@ $ python xor.py
 <i>This library is under active development.</i>
 
 ## Change Log
+- 04-05-2018: (v0.2.1) Faster creation (more pandas/numpy native), Dataframe more intuitive to read and parse
 - 03-22-2018: (v0.2.1) Algorithm updates in-flight: NEAT improvements, ablation and honing, and connection costing
 - 02-01-2018: (v0.2.0) Update complete: Torch, Ray, Object Storage and Parquet.
 - 01-28-2018: (v0.2.0) Complete overhaul underway. Please expect instability in the master branch.
