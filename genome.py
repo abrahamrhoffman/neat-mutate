@@ -148,6 +148,6 @@ class Genome(object):
         if aMutation == ("node"):
             GENOME = self.add_node(GENOME)
         if aMutation == ("connection") :
-            GENOME = aself.add_connection(GENOME)
+            GENOME = self.add_connection(GENOME)
 
         return GENOME
