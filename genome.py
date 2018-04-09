@@ -146,8 +146,8 @@ class Genome(object):
 
         aMutation = random.choice(['node', 'connection'])
         if aMutation == ("node"):
-            GENOME = add_node(GENOME)
+            GENOME = self.add_node(GENOME)
         if aMutation == ("connection") :
-            GENOME = add_connection(GENOME)
+            GENOME = aself.add_connection(GENOME)
 
         return GENOME
