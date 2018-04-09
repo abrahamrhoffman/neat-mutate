@@ -5,7 +5,8 @@ import random
 
 class Genome(object):
     '''
-    Neural Network Definition
+    Genome (Genotype) creation and modification
+    * All counting is zero indexed
     '''
 
     def __init__(self, data):
@@ -13,86 +14,140 @@ class Genome(object):
 
     def create(self):
         '''
-        Generate a Genome Definition
+        Create a Genome from two sets of genes using the data (X,Y)
+        1. Node genes : Defines the number of nodes in the Genome
+        2. Connection genes : Defines the connections, weights, and important metadata for the Genome
+        3. Return two gene objects as a single Genome (Genotype)
         '''
         X,Y = self.data
 
-        X_count = (X.shape[-1] + 1)
-        Y_count = (X_count + Y.shape[-1])
+        # Each input tensor's column represents a Neural Network Node
+        # Ex.: X = np.array([[0,0]]) equals two input nodes
+        #      X = np.array([[0,0,0],[0,1,0]]) equals three input nodes
+        #      X = np.array([[0,0,0,0],[0,1,0,1],[n,m,o,p],...]) equals four input nodes
 
-        node_genes_labels = ['node','type']                                      # Define Node Labels
-        node_genes = [[i, 'sensor'] for i in range(1, X_count)]                  # Generate Sensor Nodes
-        [node_genes.extend([[i, 'output']]) for i in range(X_count, Y_count)]    # Generate Output Nodes
-        nodes = pd.DataFrame.from_records(node_genes, columns=node_genes_labels) # Convert Nodes to DataFrame
-        connection_genes_labels = ['in','out','weight','enabled','innovation']   # Define Connection Labels
-        connection_genes = [[i] for i in range(1, Y_count)]                      # Generate Input Connections
-        [i.extend([j[0]]) for i in connection_genes for j in node_genes if ('output') in j] # Generate Output Connections
-        [i.extend([np.random.uniform(-1.0,1.0)]) for i in connection_genes]                 # Generate Connection Weights
-        [i.extend([True]) for i in connection_genes]                                        # Enable Initial Connection Genes
-        innovation_count = len([j.extend([i+1]) for i,j in enumerate(connection_genes)])    # Generate Innovation Numbers
-        connections = pd.DataFrame.from_records(connection_genes, columns=connection_genes_labels) # Convert Connections to Dataframes
-        GENOME = pd.concat([nodes,connections], axis=1)                                            # GENOME = Nodes + Connections
+        # Count the input (sensor) columns to measure NN input (sensor) nodes
+        X_count = X.shape[-1]
+        # Count the input (sensor) columns to measure NN output nodes
+        Y_count = Y.shape[-1]
+
+        ### Create a Node Gene DataFrame that represents the data (X,Y) ###
+        # Create a list of nodes (numerical increments) and their type (input,sensor)
+        node_genes_labels = ['node','type']
+        # Create another list with the column count of X as the number of nodes (sensor nodes)
+        node_genes = [[i, 'sensor'] for i in range(X_count)]
+        # Extend the list to include the output nodes (column count from the Y tensor)
+        node_genes.extend([i, 'output'] for i in range(Y_count))
+        # Create the DataFrame
+        nodes = pd.DataFrame.from_records(node_genes, columns=node_genes_labels)
+        # Fix the node count to match the actual number of nodes
+        nodes['node'] = nodes.index
+
+        ### Create a Connection Gene DataFrame ###
+        connection_gene_labels = ['in', 'out', 'weight', 'enabled', 'innovation']
+        connections = pd.DataFrame(columns=connection_gene_labels)
+        # Collect nodes from nodes df
+        node_count = nodes['node'].values.tolist()
+        del node_count[-1]
+        # Assign metadata to connections
+        for i in node_count:
+            connections.loc[i] = [i,i,np.random.uniform(-1.0,1.0),True,i]
+
+        ## Ensure initial Sensor 'in' and 'out' metadata is correct
+        # Create a list of all the output nodes
+        output_nodes = sorted(nodes.loc[nodes['type'] == ("output")]['node'].values.tolist())
+        # Calculate an integer for all sensor nodes (to assign an output node)
+        sensorOutputLen = len(nodes.loc[nodes.type == ("sensor"),:])
+        # Assign the sensor connections a random output node
+        connections.loc[nodes.type == ("sensor"),('out')] = np.random.randint(output_nodes[0],output_nodes[-1]+1,size=sensorOutputLen)
+
+        # Create the GENOME Object
+        GENOME = nodes,connections
+        # Cleanup DataFrames
+        del nodes,connections
 
         return GENOME
 
-    def add_node(self,df):
-        # Select a synapse to split (and disable the connection), then update innovation numbers
-        ## Select a connection from the sensor nodes randomly
-        potential_mutations = (df['enabled'] == True) & (df['type'] != ('output'))
-        nodes_to_split = potential_mutations[potential_mutations == True].index.tolist()
-        split = random.choice(nodes_to_split)
-        ## Duplicate the node
-        df.loc[len(df)] = df.iloc[(split)]
-        dup_node_ix = df.iloc[-1].name
-        dup_node_out = df.iloc[-1]['out']
-        ## Discover how many nodes exist, then add a new one in sequential order
-        new_node_num = list(set(df['node'].tolist()))[-1] + 1
-        new_node_out = int(df.iloc[dup_node_ix]['in'])
-        innov = list(set(df['innovation'].tolist()))[-1]
-        ## Create the new node with weight of (1)
-        df.loc[len(df)] = [new_node_num,'hidden',new_node_out,dup_node_out,1,True,(innov + 2)]
-        new_node_ix = (df.iloc[-1].name)
-        ## Update the duplicated node so it's output is the new node
-        df.iloc[dup_node_ix] = df.iloc[dup_node_ix].set_value('out', (df.iloc[new_node_ix]['node']))
-        ## Disable the original node
-        df.iloc[split] = df.iloc[split].set_value('enabled', False)
-        ## Update the duplicated node's innovation number
-        df.iloc[dup_node_ix] = df.iloc[dup_node_ix].set_value('innovation', (innov + 1))
-        return df
+    def add_node(self,GENOME):
+        '''
+        Add a new node to the Genome
+        1. Split a connection and and a new node
+        2. The in weight for the new node is the original connection's weight
+        3. The out weight for the new node is 1.00
+        4. Innovation number is incremented by +1
+        '''
 
-    def add_connection(self,df):
-        # Add a new (non-duplicate) connection to the Genome
-        ## Select an output or hidden node's index as the outbound connection
-        potential_mutations = (df['enabled'] == True) & (df['type'] != ('sensor'))
-        nodes_to_connect = potential_mutations[potential_mutations == True].index.tolist()
-        node_connect_out = random.choice(nodes_to_connect)
-        ## Select a sensor or hidden node as the inbound connection
-        potential_mutations = (df['enabled'] == True) & (df['type'] != ('output'))
-        nodes_to_connect = potential_mutations[potential_mutations == True].index.tolist()
-        node_connect_in = random.choice(nodes_to_connect)
-        ## Instantiate the connection gene in the Genome
-        innov = (list(set(df['innovation'].tolist()))[-1])
-        ## Create the New Connection
-        conn = [df.iloc[node_connect_in]['node'],df.iloc[node_connect_in]['type'],df.iloc[node_connect_in]['node'],df.iloc[node_connect_out]['node'],(np.random.uniform(-1.0,1.0)),True,(innov + 1)]
-        ## Check for Duplicates
-        not_dup = True
-        conn_check_A = list(conn[i] for i in [0,2,3])
-        conn_check_B = list(conn[i] for i in [0,3])
-        for ix,ser in df[['node','in','out']].iterrows():
-            if ser.tolist() == conn_check_A:
-                not_dup = False
-        for ix,ser in df[['node', 'out']].iterrows():
-            if ser.tolist() == conn_check_B:
-                not_dup = False
-        ## If no duplicates, then add the new connection
-        if not_dup:
-            df.loc[len(df)] = conn
-        return df
+        nodes,connections = GENOME
 
-    def mutate(self, aGenomeDF):
+        # Create a new hidden node
+        nodes.loc[-1] = [len(nodes),("hidden")]
+        nodes.reset_index(drop=True,inplace=True)
+
+        ## Split a random enabled connection
+        enabled = connections.loc[connections.enabled == True,:]
+        sample = enabled.sample().values.tolist()[0]
+
+        # Create 1st Connection
+        new_node_num = nodes.iloc[-1].node
+        new_conn_A = sample.copy()
+        new_conn_A[-1] = len(connections)
+        new_conn_A[1] = new_node_num
+
+        # Create 2nd Connection
+        new_conn_B = sample.copy()
+        new_conn_B[-1] = len(connections)+1
+        new_conn_B[2] = 1.00
+        new_conn_B[0] = new_conn_A[1]
+
+        # Disable the originally selected connection 'sample'
+        connections.loc[connections.innovation == (sample[-1]),("enabled")] = False
+
+        # Append the two new connections to the DataFrame
+        connections.loc[-1] = new_conn_A
+        connections.reset_index(drop=True,inplace=True)
+        connections.loc[-1] = new_conn_B
+        connections.reset_index(drop=True,inplace=True)
+
+        GENOME = nodes,connections
+        del nodes,connections
+
+        return GENOME
+
+    def add_connection(self,GENOME):
+        '''
+        Add a new connection to the Genome
+        '''
+
+        nodes,connections = GENOME
+
+        # Grab all the enabled and unique in/out nodes
+        enabled = connections.loc[connections.enabled == True,:]
+        conns = enabled[['in','out']].values
+        connList = np.unique(conns).tolist()
+        # Randomly choose an in and out target
+        inNode = np.random.randint(connList[0],connList[-1]+1)
+        outNode = np.random.randint(connList[0],connList[-1]+1)
+        # Set Innovation Number, Weight
+        innov = connections['innovation'].unique()[-1] + 1
+        weight = np.random.uniform(-1.0,1.0)
+        # Create the new connection
+        connections.loc[-1] = [inNode,outNode,weight,True,innov]
+        connections.reset_index(drop=True,inplace=True)
+
+        GENOME = nodes,connections
+        del nodes,connections
+
+        return GENOME
+
+    def mutate(self,GENOME):
+        '''
+        Randomly mutation a Genome (Genotype)
+        '''
+
         aMutation = random.choice(['node', 'connection'])
         if aMutation == ("node"):
-            result = self.add_node(aGenomeDF)
+            GENOME = add_node(GENOME)
         if aMutation == ("connection") :
-            result = self.add_connection(aGenomeDF)
-        return result
+            GENOME = add_connection(GENOME)
+
+        return GENOME
