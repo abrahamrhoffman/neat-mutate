@@ -1,3 +1,7 @@
+import pandas as pd
+import numpy as np
+import random
+
 class Genome(object):
     '''
     Genome (Genotype) creation and mutation
