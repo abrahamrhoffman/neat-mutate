@@ -171,18 +171,29 @@ class Genome(object):
         nodes_A = np.unique(nodes.loc[nodes.type != ("output")].node).tolist()
         # Choose a random in node for the new connection
         inNode = random.choice(nodes_A)
+        
         # Select all the unique non-sensor nodes as potential out nodes for the new connection
         # (No connections that will interrupt the intended sensor data)
-        nodes_B = np.unique(nodes.loc[nodes.type != ("sensor")].node).tolist()
+        #nodes_B = np.unique(nodes.loc[nodes.type != ("sensor")].node).tolist()
         # Remove the inNode from potential out nodes (no recurrent connections)
-        if inNode in nodes_B:
-            nodes_B.remove(inNode)
-        # Choose a random node as the outNode
+        #if inNode in nodes_B:
+        #    nodes_B.remove(inNode)
+        
+        ## Remove any nodes if they are in a layer with a smaller number
+        #  (no recurrent or recursive connections)
+        # Select the layer that inNode is in
+        layer_B = (nodes.loc[nodes.node == inNode, ("layer")].values.tolist()[0])+1
+        # Select all nodes in bLayer
+        nodes_B = nodes.loc[nodes.layer == layer_B,("node")].values.tolist()
+        # Choose a random node from bNodes as the outNode
         outNode = random.choice(nodes_B)
+
+        ## Finish generating the remaining connection information
         # Generate a weight for the connection
         aWeight = np.random.uniform(-1.0,1.0)
         # Store all connection information in a list
         metadata = [[inNode,outNode,aWeight,True,self.nextInnovation]]
+        
         # Create the new connection
         df = pd.DataFrame(metadata,columns=['in','out','weight','enabled','innovation'])
         # Increment the global innovation number
