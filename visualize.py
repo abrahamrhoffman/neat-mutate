@@ -6,40 +6,21 @@ class Visualize(object):
     Mutate Visualization: Using PyGraphViz and Dot Syntax
     '''
 
-    def create_graph(self, aDataFrameToGraph):
-        onlyEnabledDF = aDataFrameToGraph.loc[aDataFrameToGraph['enabled'] == True]
-        removeOutputDF = onlyEnabledDF.loc[onlyEnabledDF['type'] != ("output")]
+    def __init__(self, GENOME):
+        self.nodes, self.connections = GENOME
 
-        # Node and Edge Logic
-        connectionList = []
-        for ix,row in removeOutputDF[['type','node','in','out']].iterrows():
-            # If a sensor node
-            if row['type'] == ("sensor"):
-                connectionList.append(row[['node', 'out']].values.tolist())
-            # If a hidden node
-            if row['type'] == ("hidden"):
-                connectionList.append(row[['in', 'node']].values.tolist())
-                connectionList.append(row[['node', 'out']].values.tolist())
+    def create(self):
+        '''
+        Create a directed graph from a Genome (Genotype)
+        '''
+        
+        # Capture a List of Lists for in/out connections
+        connectionList = self.connections[['in','out']].values.tolist()
 
-        # Segregate the Sensor Nodes
-        sensorDF = onlyEnabledDF.loc[onlyEnabledDF['type'] == "sensor"]
-        # Create a list of sensor nodes to cluster
-        sensorNodes = sensorDF['node'].values.tolist()
-
-        # Segregate the Hidden Nodes
-        hiddenDF = onlyEnabledDF.loc[onlyEnabledDF['type'] == "hidden"]
-        # Create a list of hidden nodes to cluster
-        hiddenNodes = hiddenDF['node'].values.tolist()
-
-        # Segregate the Output Nodes
-        outputDF = onlyEnabledDF.loc[onlyEnabledDF['type'] == "output"]
-        # Create a list of output nodes to cluster
-        outputNodes = outputDF['node'].values.tolist()
-
-        # Remove non-unique nodes and edges
-        connectionList = [tuple(ele) for ix,ele in enumerate(connectionList)]
-        connectionList = set(connectionList)
-        connectionList = [list(ele) for ix,ele in enumerate(connectionList)]
+        # Cluster nodes by type
+        sensorNodes = self.nodes.loc[self.nodes.type == ("sensor"),("node")].values.tolist()
+        hiddenNodes = self.nodes.loc[self.nodes.type == ("hidden"),("node")].values.tolist()
+        outputNodes = self.nodes.loc[self.nodes.type == ("output"),("node")].values.tolist()
 
         # Create the dot syntax map
         graphString = ("digraph {")
@@ -48,11 +29,32 @@ class Visualize(object):
         graphString += ("}")
 
         # Create the Graph
-        G = pgv.AGraph(graphString, strict=False, directed=True, rankdir='LR')
+        G = pgv.AGraph(graphString, strict=True, directed=True, rankdir='LR')
         G.node_attr['shape']='circle'
-        G.add_subgraph(sensorNodes, name='cluster_sensors', label="Sensor Nodes", rank="same")
-        G.add_subgraph(hiddenNodes, name='cluster_hidden', label="Hidden Nodes")
-        G.add_subgraph(outputNodes, name='cluster_output', label="Output Nodes", rank="same")
+        #G.add_subgraph(sensorNodes, name='cluster_sensors', label="Sensor Nodes", rank="same")
+        #G.add_subgraph(hiddenNodes, name='cluster_hidden', label="Hidden Nodes")
+        #G.add_subgraph(outputNodes, name='cluster_output', label="Output Nodes", rank="same")
+
+        # Create a list of all the layers in the nodes DataFrame
+        layerList = sorted(self.nodes.layer.unique().tolist())
+        # Use the list to create a subgraph for each cluster of nodes in each layer
+        for ix,ele in enumerate(layerList):
+            # Select the nodes in layer ele as a list
+            layerN = self.nodes.loc[self.nodes.layer == ele,("node")].values.tolist()
+            # Create a name for a new subgraph
+            aName = ("cluster_" + str(ele))
+            # Create a label for a new subgraph
+            aLabel = ("layer " + str(ele))
+            # Add the subgraph to the Graph
+            if layerList[-1] == ix:
+                G.add_subgraph(layerN, name=aName, label=("output"), rank="same")
+            elif layerList[0] == ix:
+                G.add_subgraph(layerN, name=aName, label=("sensor"), rank="same")
+            else:
+                G.add_subgraph(layerN, name=aName, label=aLabel, rank="same")
+        
+        G.graph_attr.update(dpi="90")
+        
         imageResult = G.draw(format='png', prog='dot')
 
         return imageResult
