@@ -1,7 +1,3 @@
-import pandas as pd
-import numpy as np
-import random
-
 class Genome(object):
     '''
     Genome (Genotype) creation and mutation
@@ -172,14 +168,7 @@ class Genome(object):
         # Choose a random in node for the new connection
         inNode = random.choice(nodes_A)
         
-        # Select all the unique non-sensor nodes as potential out nodes for the new connection
-        # (No connections that will interrupt the intended sensor data)
-        #nodes_B = np.unique(nodes.loc[nodes.type != ("sensor")].node).tolist()
-        # Remove the inNode from potential out nodes (no recurrent connections)
-        #if inNode in nodes_B:
-        #    nodes_B.remove(inNode)
-        
-        ## Remove any nodes if they are in a layer with a smaller number
+        ## Remove any nodes if they are in a layer with an identical or smaller number
         #  (no recurrent or recursive connections)
         # Select the layer that inNode is in
         layer_B = (nodes.loc[nodes.node == inNode, ("layer")].values.tolist()[0])+1
