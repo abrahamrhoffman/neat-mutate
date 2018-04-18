@@ -6,11 +6,10 @@ class Visualize(object):
     Mutate Visualization: Using PyGraphViz and Dot Syntax
     '''
 
-    def __init__(self, GENOME,simple=True):
+    def __init__(self, GENOME):
         self.nodes, self.connections = GENOME
-        self.simple = simple
 
-    def create(self):
+    def create(self,simple=True):
         '''
         Create a directed graph from a Genome (Genotype)
         '''
@@ -33,18 +32,18 @@ class Visualize(object):
         # This grouping layout demonstrates a basic clustering of nodes and edges
         # Note: The Phenome class executes per the 'Advanced Grouping' layout
         #       For debugging, use simple=False
-        if self.simple:
+        if simple:
             sensorNodes = self.nodes.loc[self.nodes.type == ("sensor"),("node")].values.tolist()
             hiddenNodes = self.nodes.loc[self.nodes.type == ("hidden"),("node")].values.tolist()
             outputNodes = self.nodes.loc[self.nodes.type == ("output"),("node")].values.tolist()
-        
+
             G.add_subgraph(sensorNodes, name='cluster_sensors', label="Sensor Nodes", rank="same")
             G.add_subgraph(hiddenNodes, name='cluster_hidden', label="Hidden Nodes")
             G.add_subgraph(outputNodes, name='cluster_output', label="Output Nodes", rank="same")
-        
+
         ## Advanced Grouping
         # This grouping layout demonstrates how the Phenome will arrange weights in the Neural Network
-        if not self.simple:
+        if not simple:
             # Create a list of all the layers in the nodes DataFrame
             layerList = sorted(self.nodes.layer.unique().tolist())
             # Use the list to create a subgraph for each cluster of nodes in each layer
