@@ -26,4 +26,4 @@ $ git clone https://github.com/abrahamrhoffman/mutate.git
 - Evaluates Neural Network fitness
 - Grows arbitrary Neural Networks: removes non-performant nns and generates more nns similiar to the most performant
 
-<i>This library is under active development.</i>
+<i>This library is under active development.</i> See <a href="https://github.com/abrahamrhoffman/mutate/blob/master/documentation/changelog.log">Change Log</a> for details.
