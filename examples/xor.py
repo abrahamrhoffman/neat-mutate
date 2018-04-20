@@ -1,3 +1,6 @@
+# This example is antiquated. New XOR example will be provided in the v0.2.1 release.
+# For any questions, please contact Abe Hoffman at: abraham r hoffman [at] gmail dot com
+
 #!/usr/bin/python
 from __future__ import print_function
 from subprocess import Popen
