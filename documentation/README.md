@@ -1,8 +1,8 @@
 ## Current Work
 
-Please contact me directly with any questions, or submit an issue here on GitHub: <br><br>
+Please contact me directly with any questions, or submit an issue here on GitHub: <br>
 
-abraham r hoffman [at] gmail dot com
+<i>abraham r hoffman [at] gmail dot com</i>
 
 <b>04/20/2018</b>: [Developer Notes]
 - To-date, the master branch has been used to store changes to mutate's core functionality. In an effort to turn mutate into a more developer friendly library, I am pulling the development effort out of the master branch and putting into the development branch.
