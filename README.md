@@ -1,4 +1,4 @@
-## mutate
+## neat-mutate
 Distributed Neuroevolution : v0.2.0 (<i>alpha</i>)
 
 ```
